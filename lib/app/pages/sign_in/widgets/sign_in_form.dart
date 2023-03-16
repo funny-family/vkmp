@@ -13,6 +13,12 @@ class SignInFormState extends State<SignInForm> {
   final _formKey = GlobalKey<FormState>();
 
   void onPressed() {
+    if (_formKey.currentState == null) {
+      return;
+    }
+
+    _formKey.currentState!.validate();
+
     print('button is pressed!');
   }
 
@@ -40,8 +46,16 @@ class SignInFormState extends State<SignInForm> {
                 fontSize: 18,
               ),
             ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Field is required!';
+              }
+
+              return null;
+            },
           ),
           TextFormField(
+            obscureText: true,
             style: const TextStyle(
               fontSize: 18,
             ),
@@ -51,6 +65,13 @@ class SignInFormState extends State<SignInForm> {
                 fontSize: 18,
               ),
             ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Field is required!';
+              }
+
+              return null;
+            },
           ),
           const SizedBox(height: 20),
           ElevatedButton(
@@ -62,7 +83,7 @@ class SignInFormState extends State<SignInForm> {
               'Log in',
               style: TextStyle(
                 fontSize: 18,
-                fontWeight: FontWeight.normal,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ),
